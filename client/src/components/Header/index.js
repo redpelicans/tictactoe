@@ -9,7 +9,7 @@ const HeaderContainer = styled.header`
   align-items: center;
 `;
 
-const MainTitle = styled.h1`
+export const MainTitle = styled.h1`
   font-size: 40px;
 `;
 

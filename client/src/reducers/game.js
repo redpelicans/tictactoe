@@ -1,9 +1,10 @@
 import * as checkers from '../helpers/game/checkers';
 import initialState from '../initialState';
+import { PUT_PIECE, RESET_MAP } from '../actions/game';
 
 const putPiece = (state, where) => {
-  if (state.win) return state;
-  const newMap = state.map.map((cell, index) => {
+  if (state.winner) return state;
+  const newBoard = state.board.map((cell, index) => {
     if (index === where && !cell) {
       return state.player.playing;
     } else if (index === where) {
@@ -12,31 +13,32 @@ const putPiece = (state, where) => {
     return cell;
   });
 
-  const shouldNotUpdate = !!newMap.find(cell => cell === -1);
-  if (shouldNotUpdate) return state;
+  const shouldUpdate = !newBoard.find(cell => cell === -1);
+  if (!shouldUpdate) return state;
 
-  const win = checkers.win(newMap);
-  const full = checkers.full(newMap);
+  const thereIsAWinner = checkers.win(newBoard);
+  const isFinished = checkers.full(newBoard);
+  const winner = thereIsAWinner ? thereIsAWinner(newBoard) : null;
 
-  const { playing, playerName1, playerName2 } = state.player;
+  const { playing, player1, player2 } = state.player;
 
   return {
     ...state,
-    win,
-    full,
-    map: newMap,
+    winner,
+    isFinished,
+    board: newBoard,
     player: {
       ...state.player,
-      playing: playing === playerName1 ? playerName2 : playerName1,
+      playing: playing.name === player1.name ? player2 : player1,
     },
   };
 };
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case 'PUT_PIECE':
+    case PUT_PIECE:
       return putPiece(state, action.payload);
-    case 'RESET_MAP':
+    case RESET_MAP:
       return initialState.game;
     default: return state;
   }

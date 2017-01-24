@@ -1,22 +1,25 @@
-export default {
+const size = 9;
+
+const player1 = {
+  name: 'player1',
+};
+
+const player2 = {
+  name: 'player2',
+};
+
+const initialState = {
   game: {
-    map: [
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-    ],
+    size,
+    board: new Array(size).fill(null),
     player: {
-      playing: 'player1',
-      playerName1: 'player1',
-      playerName2: 'player2',
+      playing: player1,
+      player1,
+      player2,
     },
-    win: false,
-    full: false,
+    winner: null,
+    isFinished: false,
   },
 };
+
+export default initialState;

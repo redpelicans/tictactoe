@@ -3,10 +3,10 @@
 *   Checks :
 *   - - >
 */
-export const line = (map, index) => {
-  const toFind = map[index];
+const line = index => (board) => {
+  const toFind = board[index];
   if (!toFind) return false;
-  if (map[index + 1] === toFind && map[index + 2] === toFind) return toFind;
+  if (board[index + 1] === toFind && board[index + 2] === toFind) return toFind;
   return false;
 };
 
@@ -16,10 +16,10 @@ export const line = (map, index) => {
 *   |
 *   .
 */
-export const column = (map, index) => {
-  const toFind = map[index];
+const column = index => (board) => {
+  const toFind = board[index];
   if (!toFind) return false;
-  if (map[index + 3] === toFind && map[index + 6] === toFind) return toFind;
+  if (board[index + 3] === toFind && board[index + 6] === toFind) return toFind;
   return false;
 };
 
@@ -29,10 +29,10 @@ export const column = (map, index) => {
 *   . * .
 *   . . *
 */
-export const checkCrookedDownwards = (map) => {
-  const toFind = map[0];
+const crookedDownwards = (board) => {
+  const toFind = board[0];
   if (!toFind) return false;
-  if (map[4] === toFind && map[8] === toFind) return toFind;
+  if (board[4] === toFind && board[8] === toFind) return toFind;
   return false;
 };
 
@@ -42,9 +42,20 @@ export const checkCrookedDownwards = (map) => {
 *   . * .
 *   * . .
 */
-export const checkCrookedUpwards = (map) => {
-  const toFind = map[2];
+const crookedUpwards = (board) => {
+  const toFind = board[2];
   if (!toFind) return false;
-  if (map[4] === toFind && map[6] === toFind) return toFind;
+  if (board[4] === toFind && board[6] === toFind) return toFind;
   return false;
 };
+
+export default [
+  line(0),
+  line(3),
+  line(6),
+  column(0),
+  column(1),
+  column(2),
+  crookedUpwards,
+  crookedDownwards,
+];
