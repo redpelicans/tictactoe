@@ -8,7 +8,7 @@
     "test": "NODE_ENV=testing mocha --require babel-core/register --reporter spec \"./**/__test__/*.js\" ",
     "build:prod": "NODE_ENV=production webpack -p --config webpack.config.js --progress",
     "build:dev": "NODE_ENV=development webpack-dev-server --progress --config webpack.config.js",
-    "start": "NODE_ENV=development nodemon --exec 'babel-node ./api/index.js'",
+    "start": "NODE_ENV=development DEBUG=ttt:* nodemon --exec 'babel-node ./src/api/index.js'",
     "bundle:stats": "NODE_ENV=production webpack -p --config webpack.config.js --profile --json > stats.json",
     "bundle:analyse": "webpack-bundle-analyzer ./stats.json ./build --report --mode=static",
     "coverage": "NODE_ENV=testing nyc yarn test"
@@ -47,6 +47,7 @@
     "babel-preset-stage-0": "^6.16.0",
     "chai": "^3.5.0",
     "css-loader": "^0.26.1",
+    "debug": "^2.6.0",
     "eslint": "^3.11.1",
     "eslint-config-airbnb": "^12.0.0",
     "eslint-plugin-import": "^1.16.0",
